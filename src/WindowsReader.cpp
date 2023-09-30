@@ -2,7 +2,7 @@
 
 #include "WindowsReader.hpp"
 
-void WindowsReader::getRamInfo() {
+void WindowsReader::getRamInfo(const json& jsonData) {
 
     try {
         MEMORYSTATUSEX memInfo;
@@ -17,7 +17,7 @@ void WindowsReader::getRamInfo() {
     }
 }
 
-void WindowsReader::getHDDInfo() {
+void WindowsReader::getHDDInfo(const json& jsonData) {
 
     try {
         DWORD drives = GetLogicalDrives();
@@ -52,7 +52,7 @@ void WindowsReader::getHDDInfo() {
     }  
 }
 
-void WindowsReader::getProcessorInfo() {
+void WindowsReader::getProcessorInfo(const json& jsonData) {
 
     try {
         SYSTEM_INFO sysInfo;
@@ -82,7 +82,7 @@ void WindowsReader::getProcessorInfo() {
     }
 }
 
-void WindowsReader::getProcessorTemperature() {
+void WindowsReader::getProcessorTemperature(const json& jsonData) {
 
     try {
         FILETIME idleTime, kernelTime, userTime;
@@ -91,7 +91,7 @@ void WindowsReader::getProcessorTemperature() {
 
             ULONGLONG totalTime = ((ULONGLONG)kernelTime.dwLowDateTime + (ULONGLONG)userTime.dwLowDateTime) / 10000;
 
-            std::cout << "Processor Temperature: " << totalTime << " degree" << std::endl;
+            std::cout << "Processor Temperature: " << static_cast<int>(totaltime / 100000) << " degree" << std::endl;
         } 
         else std::cerr << "[Error] Failed to Run Sensors Command!" << std::endl;
     }

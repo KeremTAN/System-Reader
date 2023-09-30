@@ -1,0 +1,14 @@
+/Users/kerem/Desktop/System-Reader/Front-End/bin/Debug/net7.0/Front-End
+/Users/kerem/Desktop/System-Reader/Front-End/bin/Debug/net7.0/Front-End.deps.json
+/Users/kerem/Desktop/System-Reader/Front-End/bin/Debug/net7.0/Front-End.runtimeconfig.json
+/Users/kerem/Desktop/System-Reader/Front-End/bin/Debug/net7.0/Front-End.dll
+/Users/kerem/Desktop/System-Reader/Front-End/bin/Debug/net7.0/Front-End.pdb
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.GeneratedMSBuildEditorConfig.editorconfig
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.AssemblyInfoInputs.cache
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.AssemblyInfo.cs
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.csproj.CoreCompileInputs.cache
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.dll
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/refint/Front-End.dll
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.pdb
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/Front-End.genruntimeconfig.cache
+/Users/kerem/Desktop/System-Reader/Front-End/obj/Debug/net7.0/ref/Front-End.dll

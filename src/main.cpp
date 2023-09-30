@@ -2,8 +2,8 @@
 #include "WindowsReader.hpp"
 #include "PosixReader.hpp"
 
-
 int main() {
+    using json = nlohmann::json;
 
     #ifndef _WIN32
         std::unique_ptr<ISystemReader> sr = std::make_unique<PosixReader>();
@@ -12,7 +12,8 @@ int main() {
     #endif
 
     while (true) {
-        sr->getSystemInfo();
+        json jsonData;
+        sr->getSystemInfo(jsonData);
         std::this_thread::sleep_for(std::chrono::seconds(1));
     }
     return 0;

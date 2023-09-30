@@ -18,7 +18,8 @@ set(PROJECT_SOURCES
 set(PROJECT_HEADERS
     ${PROJECT_INCLUDE_DIR}/ISystemReader.hpp
     ${PROJECT_SOURCE_DIR}/WindowsReader.hpp
-    ${PROJECT_SOURCE_DIR}/PosixReader.hpp)
+    ${PROJECT_SOURCE_DIR}/PosixReader.hpp
+    ${PROJECT_INCLUDE_DIR}/nlohmann/*.hpp)
 
 include_directories(${PROJECT_INCLUDE_DIR})
 

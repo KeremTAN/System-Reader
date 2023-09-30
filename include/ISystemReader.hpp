@@ -7,6 +7,7 @@
 #include <chrono>
 #include <memory>
 #include <thread>
+#include "nlohmann/json.hpp"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -18,22 +19,23 @@
 #endif
 
 class ISystemReader {
+    using json = nlohmann::json;
 public:
     virtual ~ISystemReader() = default;
 
-    inline void getSystemInfo() {
+    inline void getSystemInfo(const json& jsonData) {
 
-        getRamInfo();
-        getHDDInfo();
-        getProcessorInfo();
-        getProcessorTemperature();
+        getRamInfo(jsonData);
+        getHDDInfo(jsonData);
+        getProcessorInfo(jsonData);
+        getProcessorTemperature(jsonData);
     };
 
 private:
-    virtual void getRamInfo() = 0;
-    virtual void getHDDInfo() = 0;
-    virtual void getProcessorInfo() = 0;
-    virtual void getProcessorTemperature() = 0;
+    virtual void getRamInfo(const json&)                = 0;
+    virtual void getHDDInfo(const json&)                = 0;
+    virtual void getProcessorInfo(const json&)          = 0;
+    virtual void getProcessorTemperature(const json&)   = 0;
 };
 
 #endif

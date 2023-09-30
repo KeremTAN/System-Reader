@@ -2,7 +2,7 @@
 
 #include "PosixReader.hpp"
 
-void PosixReader::getRamInfo() {
+void PosixReader::getRamInfo(const json& jsonData) {
     
     try {
         size_t len{ sizeof(long long) };
@@ -16,7 +16,7 @@ void PosixReader::getRamInfo() {
     }
 }
 
-void PosixReader::getProcessorInfo() {
+void PosixReader::getProcessorInfo(const json& jsonData) {
 
     try {
         size_t len{};
@@ -32,7 +32,7 @@ void PosixReader::getProcessorInfo() {
     }  
 }
 
-void PosixReader::getHDDInfo() {
+void PosixReader::getHDDInfo(const json& jsonData) {
 
     try {
         struct statvfs vfs;
@@ -52,7 +52,7 @@ void PosixReader::getHDDInfo() {
     }
 }
 
-void PosixReader::getProcessorTemperature() {
+void PosixReader::getProcessorTemperature(const json& jsonData) {
 
     try {
         if (FILE* fp = popen("sensors", "r")) {
