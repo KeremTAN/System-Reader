@@ -55,23 +55,21 @@ void PosixReader::getHDDInfo() {
 void PosixReader::getProcessorTemperature() {
 
     try {
-        FILE *fp = popen("sensors", "r");
-
-        if (fp != nullptr) {
+        if (FILE* fp = popen("sensors", "r")) {
 
             char buffer[128];
     
             while (fgets(buffer, sizeof(buffer), fp) != nullptr) {
                 if (strstr(buffer, "Core 0:") != nullptr) {
-                    std::cout << "Processor Temperature: " << buffer;
+                    std::cout << "Processor Temperature: " << buffer << " degree" << std::endl;;
                     break;
                 }
             }
+
+            pclose(fp);
         }
 
         else std::cerr << "[Error] Failed to Run Sensors Command!" << std::endl;
-
-        pclose(fp);
     }
     catch(const std::exception& e) {
         std::cerr << "[Error] " << e.what() << '\n';

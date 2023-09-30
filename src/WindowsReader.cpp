@@ -13,7 +13,7 @@ void WindowsReader::getRamInfo() {
         std::cout << "Free  RAM: " << memInfo.ullAvailPhys / (1024 * 1024) << " MB" << std::endl;
     }
     catch(const std::exception& e) {
-        sstd::cerr <<"[Error] "<<e.what() << '\n';
+        std::cerr <<"[Error] "<<e.what() << '\n';
     }
 }
 
@@ -28,8 +28,8 @@ void WindowsReader::getHDDInfo() {
                 ULARGE_INTEGER totalBytes;
                 ULARGE_INTEGER freeBytes;
 
-                char rootPath[4];
-                if (GetDiskFreeSpaceEx(rootPath, &freeBytes, &totalBytes, NULL)) {
+                wchar_t rootPath[] = { drive, L':', L'\\', L'\0' };
+                if (GetDiskFreeSpaceExW(rootPath, &freeBytes, &totalBytes, NULL)) {
 
                     unsigned long long totalSpace = totalBytes.QuadPart / (1024 * 1024);
                     unsigned long long freeSpace = freeBytes.QuadPart / (1024 * 1024); 
@@ -82,7 +82,24 @@ void WindowsReader::getProcessorInfo() {
     }
 }
 
-void WindowsReader::getProcessorTemperature() {}
+void WindowsReader::getProcessorTemperature() {
+
+    try {
+        FILETIME idleTime, kernelTime, userTime;
+
+        if (GetSystemTimes(&idleTime, &kernelTime, &userTime)) {
+
+            ULONGLONG totalTime = ((ULONGLONG)kernelTime.dwLowDateTime + (ULONGLONG)userTime.dwLowDateTime) / 10000;
+
+            std::cout << "Processor Temperature: " << totalTime << " degree" << std::endl;
+        } 
+        else std::cerr << "[Error] Failed to Run Sensors Command!" << std::endl;
+    }
+    catch(const std::exception& e) {
+        std::cerr << "[Error] " << e.what() << '\n';
+    }
+    
+}
 
 #endif
 
