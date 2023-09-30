@@ -4,7 +4,12 @@
 
 
 int main() {
-    std::unique_ptr<ISystemReader> sr = std::make_unique<PosixReader>();
+
+    #ifndef _WIN32
+        std::unique_ptr<ISystemReader> sr = std::make_unique<PosixReader>();
+    #else
+        std::unique_ptr<ISystemReader> sr = std::make_unique<WindowsReader>();
+    #endif
 
     while (true) {
         sr->getSystemInfo();

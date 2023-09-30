@@ -2,21 +2,14 @@
 
 #include "PosixReader.hpp"
 
-
-void PosixReader::getSystemInfo() {
-
-    getRamInfo();
-    getProcessorInfo();
-    getHDDInfo();
-};
-
 void PosixReader::getRamInfo() {
+
     size_t len{ sizeof(long long) };
     long long ramSize{};
     sysctlbyname("hw.memsize", &ramSize, &len, NULL, 0);
 
     std::cout << "Total RAM: " << ramSize / (1024 * 1024) << " MB" << std::endl;
-};
+}
 
 void PosixReader::getProcessorInfo() {
     
@@ -27,14 +20,12 @@ void PosixReader::getProcessorInfo() {
     sysctlbyname("hw.model", model.get(), &len, NULL, 0);
     
     std::cout << "Processor Model: " << model << std::endl;
-};
+}
 
 void PosixReader::getHDDInfo() {
 
     struct statvfs vfs;
-
-    try
-    {
+    try {
         if (statvfs("/", &vfs) != -1) {
 
             unsigned long long total_space = vfs.f_frsize * vfs.f_blocks;
@@ -52,7 +43,9 @@ void PosixReader::getHDDInfo() {
     {
         std::cerr <<"[Error] "<<e.what() <<std::endl;
     }
-    
+}
+
+void PosixReader::getProcessorTemperature() {
     
 }
 

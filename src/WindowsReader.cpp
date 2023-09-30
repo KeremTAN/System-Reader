@@ -2,13 +2,6 @@
 
 #include "WindowsReader.hpp"
 
-
-void WindowsReader::getSystemInfo() {
-
-    getProcessorInfo();
-    getRamInfo();
-};
-
 void WindowsReader::getRamInfo() {
 
     MEMORYSTATUSEX memInfo;
@@ -17,34 +10,11 @@ void WindowsReader::getRamInfo() {
 
     std::cout << "Total RAM: " << memInfo.ullTotalPhys / (1024 * 1024) << " MB" << std::endl;
     std::cout << "Free  RAM: " << memInfo.ullAvailPhys / (1024 * 1024) << " MB" << std::endl;
-};
-
-void WindowsReader::getProcessorInfo() {
-    
-    SYSTEM_INFO sysInfo;
-    GetSystemInfo(&sysInfo);
-
-    std::cout << "Processor Model: ";
-    switch (sysInfo.wProcessorArchitecture) {
-        case PROCESSOR_ARCHITECTURE_AMD64:
-            std::cout << "x64" << std::endl;
-            break;
-        case PROCESSOR_ARCHITECTURE_ARM:
-            std::cout << "ARM" << std::endl;
-            break;
-        case PROCESSOR_ARCHITECTURE_INTEL:
-            std::cout << "x86" << std::endl;
-            break;
-        default:
-            std::cout << "Unknown" << std::endl;
-            break;
-    }
-};
+}
 
 void WindowsReader::getHDDInfo() {
 
-    try
-    {
+    try {
         DWORD drives = GetLogicalDrives();
     
         for (char drive = 'A'; drive <= 'Z'; drive++) {
@@ -76,8 +46,32 @@ void WindowsReader::getHDDInfo() {
     catch(const std::exception& e)
     {
         std::cerr <<"[Error] "<<e.what() <<std::endl;
-    }
+    }  
+}
+
+void WindowsReader::getProcessorInfo() {
     
+    SYSTEM_INFO sysInfo;
+    GetSystemInfo(&sysInfo);
+
+    std::cout << "Processor Model: ";
+    switch (sysInfo.wProcessorArchitecture) {
+        case PROCESSOR_ARCHITECTURE_AMD64:
+            std::cout << "x64" << std::endl;
+            break;
+        case PROCESSOR_ARCHITECTURE_ARM:
+            std::cout << "ARM" << std::endl;
+            break;
+        case PROCESSOR_ARCHITECTURE_INTEL:
+            std::cout << "x86" << std::endl;
+            break;
+        default:
+            std::cout << "Unknown" << std::endl;
+            break;
+    }
+}
+void WindowsReader::getProcessorTemperature() {
+
 }
 
 #endif

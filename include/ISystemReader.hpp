@@ -21,12 +21,19 @@ class ISystemReader {
 public:
     virtual ~ISystemReader() = default;
 
-    virtual void getSystemInfo() = 0;
+    inline void getSystemInfo() {
+
+        getRamInfo();
+        getHDDInfo();
+        getProcessorInfo();
+        getProcessorTemperature();
+    };
 
 private:
     virtual void getRamInfo() = 0;
-    virtual void getProcessorInfo() = 0;
     virtual void getHDDInfo() = 0;
+    virtual void getProcessorInfo() = 0;
+    virtual void getProcessorTemperature() = 0;
 };
 
 #endif

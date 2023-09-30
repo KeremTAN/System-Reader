@@ -8,12 +8,11 @@ public:
     WindowsReader()  = default;
     ~WindowsReader() = default;
 
-    void getSystemInfo()    override;
-
 private:
-    void getRamInfo()       override;
-    void getProcessorInfo() override;
-    void getHDDInfo()       override;
+    void getRamInfo()               override;
+    void getHDDInfo()               override;
+    void getProcessorInfo()         override;
+    void getProcessorTemperature()  override;
 };
 
 #endif
