@@ -11,8 +11,10 @@ public:
 
     void getSystemInfo()    override;
 
+private:
     void getRamInfo()       override;
     void getProcessorInfo() override;
+    void getHDDInfo()       override;
 };
 
 #endif

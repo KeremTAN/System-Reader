@@ -7,6 +7,7 @@ void PosixReader::getSystemInfo() {
 
     getRamInfo();
     getProcessorInfo();
+    getHDDInfo();
 };
 
 void PosixReader::getRamInfo() {
@@ -27,5 +28,32 @@ void PosixReader::getProcessorInfo() {
     
     std::cout << "Processor Model: " << model << std::endl;
 };
+
+void PosixReader::getHDDInfo() {
+
+    struct statvfs vfs;
+
+    try
+    {
+        if (statvfs("/", &vfs) != -1) {
+
+            unsigned long long total_space = vfs.f_frsize * vfs.f_blocks;
+            unsigned long long available_space = vfs.f_frsize * vfs.f_bfree;
+            
+            std::cout << "Total HDD Space: " << total_space / (1024 * 1024) << " MB" << std::endl;
+            std::cout << "Free  HDD Space: " << available_space / (1024 * 1024) << " MB" << std::endl;
+        }
+
+        else {
+            std::cerr << "[Error] HDD info could not analyze." << std::endl;
+        }
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr <<"[Error] "<<e.what() <<std::endl;
+    }
+    
+    
+}
 
 #endif

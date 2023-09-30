@@ -14,6 +14,7 @@
 #else
 #include <unistd.h>
 #include <sys/sysctl.h>
+#include <sys/statvfs.h>
 #endif
 
 class ISystemReader {
@@ -22,8 +23,10 @@ public:
 
     virtual void getSystemInfo() = 0;
 
+private:
     virtual void getRamInfo() = 0;
     virtual void getProcessorInfo() = 0;
+    virtual void getHDDInfo() = 0;
 };
 
 #endif
