@@ -13,12 +13,12 @@ set (PROJECT_SOURCE_DIR ${PROJECT_DIR}/src)
 set(PROJECT_SOURCES
     ${PROJECT_SOURCE_DIR}/main.cpp
     ${PROJECT_SOURCE_DIR}/WindowsReader.cpp
-    ${PROJECT_SOURCE_DIR}/PosixReader.cpp)
+    ${PROJECT_SOURCE_DIR}/MacOsReader.cpp)
 
 set(PROJECT_HEADERS
     ${PROJECT_INCLUDE_DIR}/ISystemReader.hpp
     ${PROJECT_SOURCE_DIR}/WindowsReader.hpp
-    ${PROJECT_SOURCE_DIR}/PosixReader.hpp
+    ${PROJECT_SOURCE_DIR}/MacOsReader.hpp
     ${PROJECT_INCLUDE_DIR}/nlohmann/*.hpp)
 
 include_directories(${PROJECT_INCLUDE_DIR})

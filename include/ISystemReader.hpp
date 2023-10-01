@@ -23,7 +23,7 @@ class ISystemReader {
 public:
     virtual ~ISystemReader() = default;
 
-    inline void getSystemInfo(const json& jsonData) {
+    inline void getSystemInfo(json& jsonData) {
 
         getRamInfo(jsonData);
         getHDDInfo(jsonData);
@@ -32,10 +32,10 @@ public:
     };
 
 private:
-    virtual void getRamInfo(const json&)                = 0;
-    virtual void getHDDInfo(const json&)                = 0;
-    virtual void getProcessorInfo(const json&)          = 0;
-    virtual void getProcessorTemperature(const json&)   = 0;
+    virtual void getRamInfo(json&)                = 0;
+    virtual void getHDDInfo(json&)                = 0;
+    virtual void getProcessorInfo(json&)          = 0;
+    virtual void getProcessorTemperature(json&)   = 0;
 };
 
 #endif

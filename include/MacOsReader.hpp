@@ -1,13 +1,14 @@
-#ifndef WINDOWSREADER_HPP
-#define WINDOWSREADER_HPP
+#ifndef POSIXSREADER_HPP
+#define POSIXSREADER_HPP
 
 #include "ISystemReader.hpp"
 
-class WindowsReader : public ISystemReader {
+
+class MacOsReader : public ISystemReader {
     using json = nlohmann::json;
 public:
-    WindowsReader()  = default;
-    ~WindowsReader() = default;
+    MacOsReader()  = default;
+    ~MacOsReader() = default;
 
 private:
     void getRamInfo(json&)               override;
