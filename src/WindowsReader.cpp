@@ -2,7 +2,7 @@
 
 #include "WindowsReader.hpp"
 
-void WindowsReader::getRamInfo(const json& jsonData) {
+void WindowsReader::getRamInfo(json& jsonData) {
 
     try {
         MEMORYSTATUSEX memInfo;
@@ -17,7 +17,7 @@ void WindowsReader::getRamInfo(const json& jsonData) {
     }
 }
 
-void WindowsReader::getHDDInfo(const json& jsonData) {
+void WindowsReader::getHDDInfo(json& jsonData) {
 
     try {
         DWORD drives = GetLogicalDrives();
@@ -34,8 +34,8 @@ void WindowsReader::getHDDInfo(const json& jsonData) {
                     unsigned long long totalSpace = totalBytes.QuadPart / (1024 * 1024);
                     unsigned long long freeSpace = freeBytes.QuadPart / (1024 * 1024); 
 
-                    jsonData["2 - Total HDD Space of Driver"] = " " + drive + ": " + std::to_string(totalSpace) + " MB";
-                    jsonData["3 - Free  HDD Space of Driver"] = " " + drive + ": " + std::to_string(freeSpace)  + " MB";
+                    jsonData["2 - Total HDD Space of Driver"] = " " + std::to_string(drive) + ": " + std::to_string(totalSpace) + " MB";
+                    jsonData["3 - Free  HDD Space of Driver"] = " " + std::to_string(drive) + ": " + std::to_string(freeSpace)  + " MB";
                 }
                 else {
                     std::cerr << "[Error] Failed to Analyze HDD Information!\n"
@@ -49,7 +49,7 @@ void WindowsReader::getHDDInfo(const json& jsonData) {
     }  
 }
 
-void WindowsReader::getProcessorInfo(const json& jsonData) {
+void WindowsReader::getProcessorInfo(json& jsonData) {
 
     try {
         SYSTEM_INFO sysInfo;
@@ -86,7 +86,7 @@ void WindowsReader::getProcessorInfo(const json& jsonData) {
     }
 }
 
-void WindowsReader::getProcessorTemperature(const json& jsonData) { // ??????????????????????????????????
+void WindowsReader::getProcessorTemperature(json& jsonData) { // ??????????????????????????????????
 
     try {
         FILETIME idleTime, kernelTime, userTime;
@@ -94,8 +94,9 @@ void WindowsReader::getProcessorTemperature(const json& jsonData) { // ?????????
         if (GetSystemTimes(&idleTime, &kernelTime, &userTime)) {
 
             ULONGLONG totalTime = ((ULONGLONG)kernelTime.dwLowDateTime + (ULONGLONG)userTime.dwLowDateTime) / 10000;
+            totalTime /= 100000;
             
-            jsonData["6 - Processor Temperature"] = static_cast<std::string>((totaltime / 100000)) + " degree";
+            jsonData["6 - Processor Temperature"] = std::to_string(totalTime) + " degree";
         } 
         else std::cerr << "[Error] Failed to Run Sensors Command!" << std::endl;
     }
