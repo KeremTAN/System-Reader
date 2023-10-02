@@ -16,8 +16,8 @@ public:
     void sendJsonData(const char*);
 
 private:
-    int m_tcpSocket{}, m_newSocket{}, m_opt{1};
-    struct sockaddr_in m_serverAddr{}, m_clientAddr{};
+    int m_tcpSocket{};
+    struct sockaddr_in m_serverAddr{};
     socklen_t m_addr_size{};
 };
 

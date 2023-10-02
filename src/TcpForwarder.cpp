@@ -7,36 +7,28 @@ TcpForwarder::TcpForwarder(){
         m_serverAddr.sin_family = AF_INET;
         m_serverAddr.sin_port = htons(8081);
         m_serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+        inet_pton(AF_INET, "127.0.0.1", &(m_serverAddr.sin_addr));
     }
     catch(const std::exception& e) {
         std::cerr << e.what() << '\n';
     }
-    
 }
 
 void TcpForwarder::sendJsonData(const char* jsonString){
     try
     {
-        if(m_tcpSocket = socket(AF_INET, SOCK_STREAM, 0) > -1) {
+        if((m_tcpSocket=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) != -1) {
 
-            if(bind(m_tcpSocket, (struct sockaddr *)&m_serverAddr, sizeof(m_serverAddr)) != -1) {
-                
-                listen(m_tcpSocket, 3);
-                m_addr_size = sizeof(m_clientAddr);
+            if(connect(m_tcpSocket, reinterpret_cast<struct sockaddr*>(&m_serverAddr), sizeof(m_serverAddr)) != -1) {
+                std::cout << "Connecting √" << std::endl;
 
-                m_newSocket = accept(m_tcpSocket, (struct sockaddr*)&m_clientAddr, &m_addr_size);
+                int bytes = send(m_tcpSocket, jsonString, strlen(jsonString), 0); 
 
-                if (m_newSocket != -1) {
-
-                    std::cout << "Client connected" << std::endl;
-                    send(m_newSocket, jsonString, strlen(jsonString), 0); 
-                    close(m_newSocket); 
-                } 
-                else std::cerr << "Accept Error" << std::endl;
+                if(bytes == -1) std::cerr << "Sending Error" << std::endl;
 
                 close(m_tcpSocket); 
-            }
-            else std::cerr << "Binding Error" << std::endl;
+            } 
+            else std::cerr << "Connecting Error" << std::endl;
         }
         else std::cerr << "Socket Error"<< '\n';
     }

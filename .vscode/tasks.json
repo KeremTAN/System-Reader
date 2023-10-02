@@ -43,6 +43,21 @@
             "args": [
                 "-l"
             ]
+        },
+        {
+            "label": "Dotnet",
+            "type": "shell",
+            "command": "dotnet",
+            "options": {
+                "cwd": "${workspaceFolder}/Front-End"
+            },
+            "args": [
+                "run"
+            ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
         }
     ]
 }
