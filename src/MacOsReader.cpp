@@ -10,8 +10,7 @@ void MacOsReader::getRamInfo(json& jsonData) {
         long long ramSize{};
         sysctlbyname("hw.memsize", &ramSize, &len, NULL, 0);
 
-        jsonData["1 - Total RAM"] = std::to_string(ramSize / (1024 * 1024));
-        //std::cout << "Total RAM: " << ramSize / (1024 * 1024) << " MB" << std::endl;  
+        jsonData["1 - Total RAM"] = std::to_string(ramSize / (1024 * 1024)) + " MB";
     }
     catch(const std::exception& e) {
         std::cerr << "[Error] " << e.what() << '\n';
@@ -27,11 +26,8 @@ void MacOsReader::getHDDInfo(json& jsonData) {
             unsigned long long total_space = vfs.f_frsize * vfs.f_blocks;
             unsigned long long available_space = vfs.f_frsize * vfs.f_bfree;
             
-            jsonData["2 - Total HDD Space"] = std::to_string(total_space / (1024 * 1024));
-            jsonData["3 - Free HDD Space"] = std::to_string(available_space / (1024 * 1024));
-            
-            //std::cout << "Total HDD Space: " << total_space / (1024 * 1024) << " MB" << std::endl;
-            //std::cout << "Free  HDD Space: " << available_space / (1024 * 1024) << " MB" << std::endl;
+            jsonData["2 - Total HDD Space"] = std::to_string(total_space / (1024 * 1024)) + " MB";
+            jsonData["3 - Free  HDD Space"] = std::to_string(available_space / (1024 * 1024)) + " MB";
         }
 
         else std::cerr << "[Error] Failed to Analyze HDD Information!" << std::endl;
@@ -50,8 +46,7 @@ void MacOsReader::getProcessorInfo(json& jsonData) {
         std::unique_ptr<char[]> model(new char[len * sizeof(char)]);
         sysctlbyname("hw.model", model.get(), &len, NULL, 0);
         
-        jsonData["4 - Processor Model"] = model.get();
-        //std::cout << "Processor Model: " << model << std::endl;   
+        jsonData["4 - Processor Model"] = model.get();   
     }
     catch(const std::exception& e) {
         std::cerr << "[Error] " << e.what() << '\n';

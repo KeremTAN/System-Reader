@@ -15,6 +15,7 @@ TcpForwarder::TcpForwarder(){
 }
 
 void TcpForwarder::sendJsonData(const char* jsonString){
+    
     try
     {
         if((m_tcpSocket=socket(AF_INET,SOCK_STREAM,IPPROTO_TCP)) != -1) {
@@ -24,13 +25,14 @@ void TcpForwarder::sendJsonData(const char* jsonString){
 
                 int bytes = send(m_tcpSocket, jsonString, strlen(jsonString), 0); 
 
-                if(bytes == -1) std::cerr << "Sending Error" << std::endl;
+                if(bytes == -1)
+                    std::cerr << "[Error] Sending Failure" << std::endl;
 
                 close(m_tcpSocket); 
             } 
-            else std::cerr << "Connecting Error" << std::endl;
+            else std::cerr << "[Error] Connecting Failure" << std::endl;
         }
-        else std::cerr << "Socket Error"<< '\n';
+        else std::cerr << "[Error] Socket Failure"<< '\n';
     }
     catch(const std::exception& e) {
         std::cerr << e.what() << '\n';
